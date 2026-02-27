@@ -1,0 +1,29 @@
+## .NET / ASP.NET Core
+bin/
+obj/
+*.user
+*.suo
+.vs/
+.vscode/
+
+## Build outputs
+publish/
+out/
+
+## NuGet
+*.nupkg
+*.snupkg
+.nuget/
+
+## Secrets & config overrides
+appsettings.Development.json
+appsettings.*.json
+!appsettings.json
+secrets.json
+
+## Docker volumes (if any local data)
+pgdata/
+
+## OS
+.DS_Store
+Thumbs.db

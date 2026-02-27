@@ -1,0 +1,16 @@
+services:
+  timescaledb:
+    image: timescale/timescaledb:latest-pg16
+    container_name: leaflet_tsdb
+    environment:
+      POSTGRES_DB: leaflet_demo
+      POSTGRES_USER: leaflet
+      POSTGRES_PASSWORD: abc1234!
+    ports:
+      - "5432:5432"
+    volumes:
+      - timescaledb_data:/var/lib/postgresql/data
+    restart: unless-stopped
+
+volumes:
+  timescaledb_data:
