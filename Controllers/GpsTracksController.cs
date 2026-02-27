@@ -11,7 +11,7 @@ public class GpsTracksController(AppDbContext db) : ControllerBase
 {
     /// <summary>Latest position of every vehicle (DISTINCT ON for TimescaleDB efficiency)</summary>
     [HttpGet("vehicles")]
-    public async Task<IActionResult> GetVehicles() =>
+    public async Task<IActionResult> GetVehiclesPosition() =>
         Ok(await db.GpsTracks
             .FromSqlRaw(
                 "SELECT DISTINCT ON (vehicle_id) * FROM gps_tracks ORDER BY vehicle_id, time DESC")
@@ -19,7 +19,7 @@ public class GpsTracksController(AppDbContext db) : ControllerBase
 
     /// <summary>Track history for one vehicle within a time window (default: last 1 hour)</summary>
     [HttpGet("{vehicleId}")]
-    public async Task<IActionResult> GetTrack(
+    public async Task<IActionResult> GetTrackHistory(
         string vehicleId,
         [FromQuery] DateTime? from,
         [FromQuery] DateTime? to)
