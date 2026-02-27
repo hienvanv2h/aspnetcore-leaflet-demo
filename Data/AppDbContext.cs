@@ -6,6 +6,7 @@ namespace LeafletBE.Data;
 public class AppDbContext(DbContextOptions<AppDbContext> options) : DbContext(options)
 {
     public DbSet<GpsTrack> GpsTracks { get; set; }
+    public DbSet<Vehicle>  Vehicles  { get; set; }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
@@ -19,6 +20,19 @@ public class AppDbContext(DbContextOptions<AppDbContext> options) : DbContext(op
             entity.Property(e => e.Lng).HasColumnName("lng");
             entity.Property(e => e.Speed).HasColumnName("speed");
             entity.Property(e => e.Heading).HasColumnName("heading");
+        });
+
+        modelBuilder.Entity<Vehicle>(entity =>
+        {
+            entity.ToTable("vehicles");
+            entity.HasKey(e => e.Id);
+            entity.Property(e => e.Id).HasColumnName("id").UseIdentityByDefaultColumn();
+            entity.Property(e => e.VehicleId).HasColumnName("vehicle_id").IsRequired();
+            entity.HasIndex(e => e.VehicleId).IsUnique();
+            entity.Property(e => e.Name).HasColumnName("name").IsRequired();
+            entity.Property(e => e.Type).HasColumnName("type");
+            entity.Property(e => e.Description).HasColumnName("description");
+            entity.Property(e => e.CreatedAt).HasColumnName("created_at");
         });
     }
 }
