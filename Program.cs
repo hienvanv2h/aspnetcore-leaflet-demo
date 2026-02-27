@@ -23,7 +23,7 @@ app.UseHttpsRedirection();
 app.UseAuthorization();
 app.MapControllers();
 
-// Initialize DB: enable TimescaleDB extension and create hypertable if needed
+// Initialize DB: enable TimescaleDB extension and create schema
 using (var scope = app.Services.CreateScope())
 {
     var db = scope.ServiceProvider.GetRequiredService<AppDbContext>();
