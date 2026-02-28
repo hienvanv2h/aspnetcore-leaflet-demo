@@ -12,5 +12,20 @@ services:
       - timescaledb_data:/var/lib/postgresql/data
     restart: unless-stopped
 
+  # Chỉ chạy TimescaleDB (mặc định — không có tileserver)
+  # docker compose up -d
+  # Chạy thêm tileserver (cần tải bản đồ vector tiles: https://www.maptiler.com/on-prem-datasets/planet/)
+  # docker compose --profile tiles up -d
+  tileserver:
+    image: maptiler/tileserver-gl
+    container_name: leaflet_tileserver
+    profiles:
+      - tiles
+    ports:
+      - "8080:8080"
+    volumes:
+      - ${TILES_DIR}:/data
+    restart: unless-stopped
+
 volumes:
   timescaledb_data:
